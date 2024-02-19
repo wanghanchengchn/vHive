@@ -6,5 +6,8 @@
 	"PodNetworkAddonConfigURL": "https://raw.githubusercontent.com/vhive-serverless/vHive/main/configs/calico/canal.yaml",
 	"ApiserverPort": "6443",
 	"ApiserverToken": "",
-	"ApiserverTokenHash": ""
+	"ApiserverDiscoveryToken": "",
+	"ApiserverCertificateKey": "",
+	"CPHAEndpoint": "10.0.1.254",
+	"CPHAPort": "8443"
 }

@@ -30,7 +30,10 @@ type KubeConfigStruct struct {
 	PodNetworkAddonConfigURL  string
 	ApiserverPort             string
 	ApiserverToken            string
-	ApiserverTokenHash        string
+	ApiserverDiscoveryToken   string
+	ApiserverCertificateKey   string
+	CPHAEndpoint              string
+	CPHAPort                  string
 }
 
 var Kube = KubeConfigStruct{}
