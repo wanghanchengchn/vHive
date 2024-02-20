@@ -41,10 +41,6 @@ func CreateMultinodeCluster(stockContainerd string, rawHaReplicaCount string) er
 		return err
 	}
 
-	/*if err := CreateMasterKubeletService(); err != nil {
-		return err
-	}*/
-
 	if err := DeployKubernetes(haReplicaCount); err != nil {
 		return err
 	}
@@ -71,29 +67,6 @@ func CreateMultinodeCluster(stockContainerd string, rawHaReplicaCount string) er
 	utils.InfoPrintf("Set up master node\n")
 	if err := SetupMasterNode(stockContainerd); err != nil {
 		utils.FatalPrintf("Failed to set up master node!\n")
-		return err
-	}
-
-	return nil
-}
-
-// Create kubelet service on master node
-func CreateMasterKubeletService() error {
-	utils.WaitPrintf("Creating kubelet service")
-	// Create service directory if not exist
-	_, err := utils.ExecShellCmd("sudo mkdir -p /etc/sysconfig")
-	if !utils.CheckErrorWithMsg(err, "Failed to create kubelet service!\n") {
-		return err
-	}
-	bashCmd := `sudo sh -c 'cat <<EOF > /etc/sysconfig/kubelet
-KUBELET_EXTRA_ARGS="--container-runtime=remote --v=%d --runtime-request-timeout=15m --container-runtime-endpoint=unix:///run/containerd/containerd.sock"
-EOF'`
-	_, err = utils.ExecShellCmd(bashCmd, configs.System.LogVerbosity)
-	if !utils.CheckErrorWithMsg(err, "Failed to create kubelet service!\n") {
-		return err
-	}
-	_, err = utils.ExecShellCmd("sudo systemctl daemon-reload")
-	if !utils.CheckErrorWithTagAndMsg(err, "Failed to create kubelet service!\n") {
 		return err
 	}
 
